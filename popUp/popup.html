@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Popup</title>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400" rel="stylesheet" />
+  <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
+  <style>
+    *,
+    *::after,
+    *::before {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Open Sans';
+      font-weight: 300;
+    }
+
+    .title {
+      color: #db5b33;
+      font-weight: 300;
+      text-align: center;
+    }
+
+    .popup-container {
+      display: flex;
+      opacity: 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, .3);
+      justify-content: center;
+      z-index: -10;
+      transition: 0.3s;
+    }
+
+    .popup-container.active {
+      opacity: 1;
+      z-index: 99;
+    }
+
+    .popup {
+      position: absolute;
+      top: 20%;
+      max-width: 520px;
+      min-height: 200px;
+      background: #fff;
+      border-radius: 5px;
+      padding: 0 30px;
+      box-shadow: 5px 5px 5px rgba(0, 0, 0, .3);
+    }
+
+    .popup h1 {
+      color: #db5b33;
+      text-align: center;
+    }
+
+    .popup p {
+      word-break: keep-all;
+    }
+
+    .btn-close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: none;
+      border: none;
+      font-size: 25px;
+      font-weight: 700;
+    }
+  </style>
+  <script defer src="app.js"></script>
+</head>
+
+<body>
+  <h1 class="title">Popup</h1>
+  <button class="btn-popup">toggle popup</button>
+  <div class="popup-container">
+    <div class="popup">
+      <h1>Hello!</h1>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab tenetur autem cum magnam, nesciunt quas, libero
+        iure
+        rerum consequatur recusandae necessitatibus?
+      </p>
+      <form>
+        <input type="text">
+        <button class="btn-ok">OK</button>
+        <button class="btn-cancel">Cancel</button>
+      </form>
+      <button class="btn-close">x</button>
+    </div>
+  </div>
+  <p class="popup-message"></p>
+
+</body>
+
+</html>

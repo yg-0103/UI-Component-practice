@@ -1,15 +1,14 @@
-const $hand = document.querySelectorAll('.hand');
-
 const setTime = (() => {
+  const $hand = document.querySelectorAll('.hand');
   const date = new Date();
   const hourDeg =
     (date.getHours() % 12) * 30 +
     date.getMinutes() * 0.5 +
-    date.getSeconds() * 0.00833333333333334;
+    date.getSeconds() * (0.5 / 60);
   const minuteDeg = date.getMinutes() * 6 + date.getSeconds() * 0.1;
   const secondDeg = date.getSeconds() * 6;
   const deg = [hourDeg, minuteDeg, secondDeg];
-  const PER_SECOND_HANDS_DEG = [0.00833333333333334, 0.1, 6];
+  const PER_SECOND_HANDS_DEG = [0.5 / 60, 0.1, 6];
 
   return () => {
     $hand.forEach((hand, i) => {

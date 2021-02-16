@@ -11,8 +11,9 @@ $popupBtn.addEventListener('click', () => {
 $popupContainer.addEventListener('click', (e) => {
   e.preventDefault();
   if (!e.target.matches('button') && e.target !== e.currentTarget) return;
+
   if (e.target.matches('.btn-ok')) {
-    $popupMessage.textContent = `form popup: ${$message.value}`;
+    $popupMessage.textContent = `from popup: ${$message.value}`;
     $message.value = '';
   }
   $popupContainer.classList.remove('active');

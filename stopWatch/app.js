@@ -52,13 +52,13 @@ const stopWatch = (() => {
   };
 })();
 
-$startBtn.addEventListener('click', (e) => {
+$startBtn.addEventListener('click', () => {
   $startBtn.textContent = $startBtn.textContent === 'Start' ? 'Stop' : 'Start';
   $resetBtn.textContent = $startBtn.textContent === 'Start' ? 'Reset' : 'Lap';
   $resetBtn.disabled = false;
   stopWatch.start();
 });
 
-$resetBtn.addEventListener('click', (e) => {
+$resetBtn.addEventListener('click', () => {
   $resetBtn.textContent === 'Lap' ? stopWatch.lapRender() : stopWatch.reset();
 });

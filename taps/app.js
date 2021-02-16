@@ -37,10 +37,8 @@ const navRender = ({ tabs }) => {
   $tabs.innerHTML = `<nav>
   ${tabs
     .map(
-      (tab) => `
-  <input type="radio" id="${tab.id}" name="tab" ${
-        tab.id === 1 ? 'checked' : ''
-      } />
+      (tab, i) => `
+  <input type="radio" id="${tab.id}" name="tab" ${i === 0 ? 'checked' : ''} />
   <label class="tab" for="${tab.id}">${tab.title}</label> 
   `
     )

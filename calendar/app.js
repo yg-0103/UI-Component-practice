@@ -17,7 +17,7 @@ const setDays = (() => {
   const date = new Date();
   state.year = date.getFullYear();
   state.month = date.getMonth();
-  state.today = `${state.year}-${state.month}-${date.getDate()}`;
+  state.today = `${state.year}-${state.month + 1}-${date.getDate()}`;
 
   return () => {
     const prevMonthLastDay = new Date(state.year, state.month, 0);
@@ -106,7 +106,7 @@ const render = () => {
           `<span id="${day}" style="color: ${
             sundays.includes(day) ? 'red' : ''
           }" class="${
-            `${state.year}-${state.month}-${day}` === state.today
+            `${state.year}-${state.month + 1}-${day}` === state.today
               ? 'active'
               : ''
           }">${day}</span>`
@@ -115,23 +115,32 @@ const render = () => {
     state.nextMonthDays
       .map((day) => `<span id="${day}" style="color: #aaa;">${day}</span>`)
       .join('');
-  console.log(document.querySelector('.calendar').scrollHeight);
 };
 
-const toggleActive = (() => {
+const active = (() => {
   const $calendar = document.querySelector('.calendar');
 
-  return () => {
-    state.active = !state.active;
-    $calendar.style.height = state.active ? `${$calendar.scrollHeight}px` : '0';
-    $calendar.style.boxShadow = state.active
-      ? '3px 3px 5px 5px rgba(0, 0, 0, .3)'
-      : 'none';
+  return {
+    toggleActive() {
+      state.active = !state.active;
+      $calendar.style.opacity = state.active ? `1` : '0';
+      $calendar.style.zIndex = state.active ? '1000' : '-1000';
+    },
+
+    resetActive() {
+      state.active = false;
+      $calendar.style.opacity = state.active ? `1` : '0';
+      $calendar.style.zIndex = state.active ? '1000' : '-1000';
+    },
   };
 })();
 
 document.addEventListener('DOMContentLoaded', render);
 
+document.body.addEventListener('click', (e) => {
+  if (e.target !== e.currentTarget) return;
+  active.resetActive();
+});
 $btnNext.addEventListener('click', () => {
   state.month += 1;
 
@@ -154,16 +163,17 @@ $btnPrev.addEventListener('click', () => {
   render();
 });
 
-$dateInput.addEventListener('click', toggleActive);
+$dateInput.addEventListener('click', active.toggleActive);
 
 $calenderContainer.addEventListener('click', (e) => {
   if (!e.target.matches('span')) return;
-  state.today = `${state.year}-${state.month}-${e.target.id}`;
+  state.today = `${state.year}-${state.month + 1}-${e.target.id}`;
 
   $dateInput.value = `${state.year}-${
-    state.month < 10 ? '0' + (state.month + 1) : state.month + 1
+    state.month + 1 < 10 ? '0' + (state.month + 1) : state.month + 1
   }-${e.target.id < 10 ? '0' + e.target.id : e.target.id}`;
+  console.log(state.today);
 
   render();
-  toggleActive();
+  active.toggleActive();
 });

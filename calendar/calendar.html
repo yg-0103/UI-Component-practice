@@ -1,167 +1,170 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calendar</title>
+    <!-- 원하는 폰트와 아이콘을 사용해도 좋다. -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:300,400"
+      rel="stylesheet"
+    />
+    <link
+      href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --calendar-size: 420px;
+      }
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Calendar</title>
-  <!-- 원하는 폰트와 아이콘을 사용해도 좋다. -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet" />
-  <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
-  <style>
-    :root {
-      --calendar-size: 420px;
-    }
+      *,
+      *::after,
+      *::before {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
 
-    *,
-    *::after,
-    *::before {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+      body {
+        font-family: 'Open Sans';
+        font-weight: 300;
+      }
 
-    body {
-      font-family: 'Open Sans';
-      font-weight: 300;
-    }
+      .title {
+        color: #db5b33;
+        font-weight: 300;
+        text-align: center;
+      }
 
-    .title {
-      color: #db5b33;
-      font-weight: 300;
-      text-align: center;
-    }
+      .date-input {
+        display: block;
+        width: 300px;
+        height: 40px;
+        margin: 10px auto;
+        padding: 20px;
+        font-size: 20px;
+        border-radius: 10px;
+        outline: none;
+        cursor: pointer;
+        border: 1px solid #aaa;
+        color: gray;
+      }
 
-    .date-input {
-      display: block;
-      width: 300px;
-      height: 40px;
-      margin: 10px auto;
-      padding: 20px;
-      font-size: 20px;
-      border-radius: 10px;
-      outline: none;
-      cursor: pointer;
-      border: 1px solid #aaa;
-      color: gray;
-    }
+      .date-input:hover {
+        border: 1px solid #40c057;
+      }
 
-    .date-input:hover {
-      border: 1px solid #40c057;
-    }
+      .calendar {
+        box-shadow: 3px 3px 5px 5px rgba(0, 0, 0, 0.3);
+        max-width: var(--calendar-size);
+        margin: 0 auto;
+        border-radius: 10px;
+        transition: 0.35s;
+        opacity: 0;
+        position: relative;
+        z-index: -100;
+      }
 
-    .calendar {
-      box-shadow: none;
-      max-width: var(--calendar-size);
-      margin: 0 auto;
-      border-radius: 10px;
-      transition: 0.35s;
-      height: 0;
-      overflow: hidden;
-    }
+      .header-container {
+        background: #40c057;
+        margin: 0 auto;
+        position: relative;
+        display: flex;
+        flex-flow: column nowrap;
+        padding: 20px;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+      }
 
-    .header-container {
-      background: #40c057;
-      margin: 0 auto;
-      position: relative;
-      display: flex;
-      flex-flow: column nowrap;
-      padding: 20px;
-      align-items: center;
-      justify-content: center;
-      color: #fff;
-      border-top-left-radius: 10px;
-      border-top-right-radius: 10px;
-    }
+      .header-container button {
+        position: absolute;
+        top: 50%;
+        transform: translate3d(0, -50%, 0);
+        background: none;
+        border: none;
+        font-size: 30px;
+        color: #fff;
+        outline: none;
+        cursor: pointer;
+      }
 
-    .header-container button {
-      position: absolute;
-      top: 50%;
-      transform: translate3d(0, -50%, 0);
-      background: none;
-      border: none;
-      font-size: 30px;
-      color: #fff;
-      outline: none;
-      cursor: pointer;
-    }
+      .btn-prev {
+        left: 20px;
+      }
 
-    .btn-prev {
-      left: 20px;
-    }
+      .btn-next {
+        right: 20px;
+      }
 
-    .btn-next {
-      right: 20px;
-    }
+      .weeks {
+        display: grid;
+        grid-template: repeat(1, 1fr) / repeat(7, 1fr);
+        text-align: center;
+        padding: 10px 0;
+        color: #aaa;
+        font-weight: bold;
+      }
 
-    .weeks {
-      display: grid;
-      grid-template: repeat(1, 1fr) / repeat(7, 1fr);
-      text-align: center;
-      padding: 10px 0;
-      color: #aaa;
-      font-weight: bold;
-    }
+      .main-container {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        margin: 0 auto;
+        text-align: center;
+        border-top: none;
+      }
 
-    .main-container {
-      display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      margin: 0 auto;
-      text-align: center;
-      border-top: none;
-    }
+      .main-container span {
+        padding: 18px;
+        border-radius: 50%;
+        transition: background-color 0.2s;
+        cursor: pointer;
+      }
 
-    .main-container span {
-      padding: 18px;
-      border-radius: 50%;
-      transition: background-color 0.2s;
-      cursor: pointer;
-    }
+      .main-container span:hover {
+        color: #fff;
+        background-color: #40c057;
+      }
 
-    .main-container span:hover {
-      color: #fff;
-      background-color: #40c057;
-    }
+      .main-container span.active {
+        background: #40c057;
+        color: #fff;
+      }
+    </style>
+  </head>
 
-    .main-container span.active {
-      background: #40c057;
-      color: #fff;
-    }
-  </style>
-</head>
-
-<body>
-  <h1 class="title">Calendar</h1>
-  <input class="date-input" type="text" placeholder="" readonly>
-  <div class="calendar">
-    <header class="calendar__header">
-      <div class="header-container">
-        <h2 class="header-month">January</h2>
-        <p class="header-year">2021</p>
-        <button class="btn-prev" type="button">
-          <i class='bx bx-caret-left'></i>
-        </button>
-        <button class="btn-next" type="button">
-          <i class='bx bx-caret-right'></i>
-        </button>
-      </div>
-    </header>
-    <main>
-      <div class="weeks">
-        <span>SUN</span>
-        <span>MON</span>
-        <span>TUE</span>
-        <span>WED</span>
-        <span>THU</span>
-        <span>FRI</span>
-        <span>SAT</span>
-      </div>
-      <div class="main-container">
-
-      </div>
-    </main>
-  </div>
-  <script defer src="app.js"></script>
-</body>
-
+  <body>
+    <h1 class="title">Calendar</h1>
+    <input class="date-input" type="text" placeholder="" readonly />
+    <div class="calendar">
+      <header class="calendar__header">
+        <div class="header-container">
+          <h2 class="header-month">January</h2>
+          <p class="header-year">2021</p>
+          <button class="btn-prev" type="button">
+            <i class="bx bx-caret-left"></i>
+          </button>
+          <button class="btn-next" type="button">
+            <i class="bx bx-caret-right"></i>
+          </button>
+        </div>
+      </header>
+      <main>
+        <div class="weeks">
+          <span>SUN</span>
+          <span>MON</span>
+          <span>TUE</span>
+          <span>WED</span>
+          <span>THU</span>
+          <span>FRI</span>
+          <span>SAT</span>
+        </div>
+        <div class="main-container"></div>
+      </main>
+    </div>
+    <script defer src="app.js"></script>
+  </body>
 </html>

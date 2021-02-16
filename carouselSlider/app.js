@@ -8,8 +8,11 @@ const render = (target, images) => {
 
 const carousel = ($container, images) => {
   render($container, images);
+
   let currentSlide = 1;
   let duration = 300;
+  let intervalTimderId = null;
+  let timeoutTimerId = null;
 
   const $carouselSlides = document.querySelector('.carousel-slides');
   const $btnNext = document.querySelector('.next');
@@ -17,39 +20,68 @@ const carousel = ($container, images) => {
   const $fistImgClone = document.querySelector('img').cloneNode();
   const $lastImgClone = $carouselSlides.lastElementChild.cloneNode();
 
-  $carouselSlides.prepend($lastImgClone);
-  $carouselSlides.append($fistImgClone);
   const setSlide = () => {
     $carouselSlides.style.setProperty('--duration', duration);
     $carouselSlides.style.setProperty('--currentSlide', currentSlide);
   };
-  $btnNext.addEventListener('click', () => {
-    duration = 200;
-    ++currentSlide;
-    setSlide();
-    if (currentSlide === images.length + 1) {
-      console.log('hi');
-      setTimeout(() => {
-        duration = 0;
-        currentSlide = 1;
-        setSlide();
-      }, duration);
-    }
-  });
 
-  $btnPrev.addEventListener('click', () => {
-    duration = 200;
-    --currentSlide;
-    setSlide();
-    if (currentSlide === 0) {
-      console.log('hi');
+  const initialSlide = (length, index) => {
+    if (currentSlide === length) {
       setTimeout(() => {
         duration = 0;
-        currentSlide = 6;
+        currentSlide = index;
         setSlide();
       }, duration);
     }
-  });
+  };
+
+  const resetTimer = () => {
+    clearInterval(intervalTimerId);
+    clearTimeout(timeoutTimerId);
+    timeoutTimerId = null;
+    intervalTimderId = null;
+  };
+
+  const autoSlide = () => {
+    intervalTimerId = setInterval(() => {
+      currentSlide += 1;
+      duration = 300;
+
+      setSlide();
+      initialSlide(images.length + 1, 1);
+    }, 1000);
+  };
+
+  const nextSlide = () => {
+    resetTimer();
+
+    currentSlide += 1;
+    duration = 300;
+
+    setSlide();
+    initialSlide(images.length + 1, 1);
+
+    timeoutTimerId = setTimeout(autoSlide, 1000);
+  };
+
+  const prevSlide = () => {
+    resetTimer();
+
+    duration = 300;
+    currentSlide -= 1;
+
+    setSlide();
+    initialSlide(0, images.length);
+
+    timeoutTimerId = setTimeout(autoSlide, 1000);
+  };
+
+  $carouselSlides.prepend($lastImgClone);
+  $carouselSlides.append($fistImgClone);
+
+  $btnNext.addEventListener('click', _.throttle(nextSlide, duration));
+
+  $btnPrev.addEventListener('click', _.throttle(prevSlide, duration));
 
   window.onload = () => {
     $container.style.width = `${
@@ -57,6 +89,7 @@ const carousel = ($container, images) => {
     }px`;
     $container.style.opacity = '1';
     $carouselSlides.style.setProperty('--currentSlide', currentSlide);
+    autoSlide();
   };
 };
 

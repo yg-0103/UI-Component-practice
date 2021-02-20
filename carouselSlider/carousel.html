@@ -75,6 +75,24 @@
     .carousel-control.next {
       right: 0;
     }
+
+    .page-container {
+      display: flex;
+      justify-content: center;
+    }
+
+    .page-container button {
+      padding: 0;
+      border: none;
+      background: #aaa;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      margin-right: 5px;
+      margin-top: 10px;
+      outline: none;
+      cursor: pointer;
+    }
   </style>
 </head>
 
@@ -82,28 +100,146 @@
   <h1 class="title">Carousel Slider</h1>
   <div class="carousel">
     <!-- <div class="carousel-slides">
-      <img
-        src="https://occ-0-1007-3996.1.nflxso.net/dnm/api/v6/X194eJsgWBDE2aQbaNdmCXGUP-Y/AAAABfRunIgRuibk6xdSBIdlJVg3r3rA3gPYCJA70qUFLC4db7nAJPL3r_15txbOjQnALfQ_WM02ejbym72r3KIoWUYTcUY.webp?r=8d0" />
-      <img
-        src="https://occ-0-1007-3996.1.nflxso.net/dnm/api/v6/X194eJsgWBDE2aQbaNdmCXGUP-Y/AAAABcZQXIucIN_xRu1gyK_fb9U4zOPM7N_0uUh0zT9caSez5blf---4foEcBqrOGp5fjpLSjyfJRQc76BT1tewf1-5Go0HJWwVb5qguK2xgvel2F3rMunc132yG337r.jpg?r=449" />
-      <img
-        src="https://occ-0-1007-3996.1.nflxso.net/dnm/api/v6/X194eJsgWBDE2aQbaNdmCXGUP-Y/AAAABUWABujkk_IMCnztl0EhuJjaQz7O1kpAxSVvFqpst0hCNTXygWVdyw-xFBy7xwzO7LR-TmuordV7NlZDg2jKGC9YnuKsXAEL9j28FEUS5ZtdKa_R9vOvYAIeIUA5.jpg?r=dd1" />
-      <img
-        src="https://occ-0-1007-3996.1.nflxso.net/dnm/api/v6/X194eJsgWBDE2aQbaNdmCXGUP-Y/AAAABWex9f-iWrovQQkWnoA74IkLGjtkFIzpswvO0cIep2p78WCHSVKgWsh3B6yvnbhpCdifBBfI9NqF8geBUhffxNxXEwpHp7jvCoNB3ubqgVtANvhGjINSjLrzxO3v.jpg?r=c9f" />
-      <img
-        src="https://occ-0-1007-3996.1.nflxso.net/dnm/api/v6/X194eJsgWBDE2aQbaNdmCXGUP-Y/AAAABWnpIDCyg-rliVC_FlI3eGe1oxm5Av006G6HBy8110kB1WKslaT5Hw9oGgDUknjbH4LHJNZuv3lL7boVd7lSDKJBo48.webp?r=f76" />
-      <img
-        src="https://occ-0-1007-3996.1.nflxso.net/dnm/api/v6/X194eJsgWBDE2aQbaNdmCXGUP-Y/AAAABQWmVqG2mSMPhkWTbi0wjk99HpptvpXHpSk5Q5vZWYanLtZreY2gN_09N_8w9K-pDZ8mSsjIWKWTUP4kcadmUJug71QsW8WV1SASyuhforonZcWsQMnIZjSyx-RU.jpg?r=742" />
-      <img
-        src="https://occ-0-1007-3996.1.nflxso.net/dnm/api/v6/X194eJsgWBDE2aQbaNdmCXGUP-Y/AAAABfRunIgRuibk6xdSBIdlJVg3r3rA3gPYCJA70qUFLC4db7nAJPL3r_15txbOjQnALfQ_WM02ejbym72r3KIoWUYTcUY.webp?r=8d0" />
-      <img
-        src="https://occ-0-1007-3996.1.nflxso.net/dnm/api/v6/X194eJsgWBDE2aQbaNdmCXGUP-Y/AAAABcZQXIucIN_xRu1gyK_fb9U4zOPM7N_0uUh0zT9caSez5blf---4foEcBqrOGp5fjpLSjyfJRQc76BT1tewf1-5Go0HJWwVb5qguK2xgvel2F3rMunc132yG337r.jpg?r=449" />
-    </div>
-    <button class="carousel-control prev">«</button>
-    <button class="carousel-control next">»</button> -->
+        <img src="./image/movie-1.jpg">
+        <img src="./image/movie-2.jpg">
+        <img src="./image/movie-3.jpg">
+        <img src="./image/movie-4.jpg">
+      </div>
+      <button class="carousel-control prev">&laquo;</button>
+      <button class="carousel-control next">&raquo;</button> -->
   </div>
-  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.20/lodash.min.js"></script>
-  <script defer src="app.js"></script>
+  <script defer src="carousel.js">
+    // const carousel = ($container, images) => {
+    //   let currentSlideIndex = 1;
+    //   let delay = 200;
+    //   let timerId;
+    //   let setTimerId;
+
+    //   $container.innerHTML = `<div class="carousel-slides"> ${images.map((image, i) => 
+    //     `<img id="${i + 1}" src="${image}">`
+    //   ).join('')}</div>
+    //   <button class="carousel-control prev">&laquo;</button>
+    //   <button class="carousel-control next">&raquo;</button>
+    //   <div class="page-container">
+    //   ${images.map((_, i) => `<button id="${i + 1}" class="pagination">o</button>`).join('')}
+    //   </div>
+    //   </div>`;
+
+    //   const $carouselSlides = document.querySelector('.carousel-slides');
+    //   const $prevBtn = document.querySelector('.prev');
+    //   const $nextBtn = document.querySelector('.next');
+    //   const $pageContainer = document.querySelector('.page-container');
+
+    //   const $firstChild = $carouselSlides.firstElementChild;
+    //   const $lastChild = $carouselSlides.lastElementChild;
+    //   const $clonedFirst = $firstChild.cloneNode(true);
+    //   const $clonedLast = $lastChild.cloneNode(true);
+
+    //   $carouselSlides.appendChild($clonedFirst);
+    //   $carouselSlides.prepend($clonedLast);
+
+    //   const activeSlide = () => {
+    //     const $pagination = document.querySelectorAll('.pagination');
+    //     if(currentSlideIndex === 5) {
+    //       $pageContainer.firstElementChild.style.background = 'yellow';
+    //       $pageContainer.lastElementChild.style.background = '#fff';
+    //     } else if (currentSlideIndex === 0) {
+    //       $pageContainer.firstElementChild.style.background = '#fff';
+    //       $pageContainer.lastElementChild.style.background = 'yellow'
+    //     }else {
+
+    //       [...$pagination].forEach($el => {
+    //       $el.style.background = `${+$el.id === currentSlideIndex? 'yellow' : '#fff'}`;
+    //     });
+    //   }
+    //   };
+
+    //   const setSlides = () => {
+    //     $carouselSlides.style.setProperty('--currentSlide', currentSlideIndex);
+    //     $carouselSlides.style.setProperty('--duration', delay);
+    //   };
+
+
+    //   const goBackSlides = (currentSlide, duration) => {
+    //     currentSlideIndex = currentSlide;
+    //     delay = duration;
+    //     setSlides();
+    //     activeSlide();
+    //   };
+    //   const slideShow = () => {
+    //     if (currentSlideIndex < images.length + 1) {
+    //       currentSlideIndex += 1;
+    //       delay = 200;
+    //       setSlides();
+    //       activeSlide();
+    //     }
+    //     if (currentSlideIndex === images.length + 1) {
+    //       activeSlide()
+    //       setTimeout(goBackSlides, delay, 1, 0);
+    //     }
+    //   };
+
+    //   $nextBtn.onclick = () => {
+    //     clearInterval(timerId);
+    //     clearTimeout(setTimerId);
+    //     slideShow();
+    //     activeSlide();
+    //     setTimerId = setTimeout(() => {
+    //       timerId = setInterval(slideShow, 1000);
+    //     }, 1000);
+    //   };
+
+    //   $prevBtn.onclick = () => {
+    //     clearInterval(timerId);
+    //     clearTimeout(setTimerId);
+
+    //     if (currentSlideIndex > 0) {
+    //       currentSlideIndex -= 1;
+    //       delay = 200;
+    //       activeSlide()
+    //       setSlides();
+    //     }
+    //     if (currentSlideIndex === 0) {
+    //       activeSlide()
+    //       setTimeout(goBackSlides, delay, 4, 0);
+    //     }
+    //     setTimerId = setTimeout(() => {
+    //       timerId = setInterval(slideShow, 1000);
+    //     }, 1000);
+    //   };
+
+    //   $pageContainer.onclick = e => {
+    //     clearInterval(timerId);
+    //     clearTimeout(setTimerId);
+    //     currentSlideIndex = +e.target.id;
+    //     setSlides();
+    //     activeSlide();
+    //     setTimerId = setTimeout(() => {
+    //       timerId = setInterval(slideShow, 1000);
+    //     }, 1000);
+    //   };
+
+    //   // $carouselSlides.lastElementChild.ontransitionend = () => {
+    //   //   $carouselSlides.lastElementChild.style.setProperty('--duration', 0);
+    //   // };
+
+    //   window.onload = () => {
+    //     $container.style.opacity = '1';
+    //     // console.log($container.scrollWidth);
+    //     $container.style.width = `${$container.scrollWidth / (images.length + 2)}px`;
+    //     $carouselSlides.style.setProperty('--currentSlide', currentSlideIndex);
+    //     timerId = setInterval(slideShow, 1000);
+    //     activeSlide();
+    //   };
+    // };
+
+    // carousel(document.querySelector('.carousel'), [
+    //   './image/movie-1.jpg',
+    //   './image/movie-2.jpg',
+    //   './image/movie-3.jpg',
+    //   './image/movie-4.jpg'
+    // ]);
+  </script>
 </body>
 
 </html>
